@@ -24,7 +24,7 @@ public class Main {
         driver.manage().window().maximize();
         driver.get("http://preprod.eng.toasttab.com/login");
         driver.findElement(By.xpath("//*[@id=\"email\"]")).sendKeys("rdiaz@toasttab.com");
-        driver.findElement(By.xpath("//*[@id=\"password\"]")).sendKeys(""); //NO SEAS TONTO
+        driver.findElement(By.xpath("//*[@id=\"password\"]")).sendKeys(System.getenv("MY_PASSWORD")); //NO SEAS TONTO
         driver.findElement(By.xpath("//*[@id=\"log-in\"]")).click();
 
         /*driver.findElement(By.xpath("//*[@id=\"restaurant-switch-menu-search\"]/input")).sendKeys("SusieCakes");
