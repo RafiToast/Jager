@@ -23,51 +23,37 @@ public class Main {
         WebDriver driver = new ChromeDriver();
         driver.manage().window().maximize();
         driver.get("http://preprod.eng.toasttab.com/login");
-        driver.findElement(By.xpath("//*[@id=\"email\"]")).sendKeys("rdiaz@toasttab.com");
-        driver.findElement(By.xpath("//*[@id=\"password\"]")).sendKeys(System.getenv("MY_PASSWORD")); //NO SEAS TONTO
-        driver.findElement(By.xpath("//*[@id=\"log-in\"]")).click();
+        logIn(driver);
 
-        /*driver.findElement(By.xpath("//*[@id=\"restaurant-switch-menu-search\"]/input")).sendKeys("SusieCakes");
-        waiter("//*[@id=\"restaurant-switch-menu\"]/li[3]",10,driver);
-        driver.findElement(By.xpath("//*[@id=\"restaurant-switch-menu\"]/li[3]/a")).click();*/
+        // Navigate by URL
+
         navigateToRestaurant("SusieCakes", driver);
         navigateByUrl(driver, preprod);
         navigateToRestaurant("Futago", driver);
         navigateByUrl(driver, preprod);
-        ////*[@id="restaurant-switch-menu-search"]/input
-        ////*[@id=\"log-in\"]System.out.println(driver.getTitle());
-/*        System.out.println(driver.getTitle());
-        driver.findElement(By.xpath("/html/body/div[2]/div[1]/div/div[3]/div/div[2]/div[4]/ul/li[1]/a")).click();
-        //WebElement RestaurantSelector = (new WebDriverWait(driver, 10)).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"toast-material\"]/aml-dashboard/div/aml-overview/aml-report-view/div/div/div[2]/aml-filter-selector/div[1]/div[2]/tk-dropdown-tree/tk-dropdown/div/div[1]/tk-dropdown-toggle/div/tk-input/div/input")));
-        waiter("//*[@id=\"toast-material\"]/aml-dashboard/div/aml-overview/aml-report-view/div/div/div[2]/aml-filter-selector/div[1]/div[2]/tk-dropdown-tree/tk-dropdown/div/div[1]/tk-dropdown-toggle/div/tk-input/div/input", 10, driver);
-        driver.findElement(By.xpath("//*[@id=\"toast-material\"]/aml-dashboard/div/aml-overview/aml-report-view/div/div/div[2]/aml-filter-selector/div[1]/div[2]/tk-dropdown-tree/tk-dropdown/div/div[1]/tk-dropdown-toggle/div/tk-input/div/input")).click();
-        driver.findElement(By.xpath("//*[@id=\"toast-material\"]/aml-dashboard/div/aml-overview/aml-report-view/div/div/div[2]/aml-filter-selector/div[1]/div[2]/tk-dropdown-tree/tk-dropdown/div/div[2]/tk-dropdown-nav/tk-dropdown-tree-item/div/div[1]")).click();
-        driver.findElement(By.xpath("//*[@id=\"toast-material\"]/aml-dashboard/div/aml-overview/aml-report-view/div/div/div[2]/aml-submit-button/button")).click();
-        waiter("//*[@id=\"toast-material\"]/aml-dashboard/div/aml-overview/aml-report-view/div/div/div[2]/div/div/div/div/div[2]/tk-icon/i", 10, driver); //WebElement downloadButton = (new WebDriverWait(driver, 30)).until(ExpectedConditions.presenceOfElementLocated(By.xpath()));
-        driver.findElement(By.xpath("//*[@id=\"toast-material\"]/aml-dashboard/div/aml-overview/aml-report-view/div/div/div[2]/div/div/div/div/div[2]/tk-icon/i")).click();
-        // Navigate by URL */
 
-
-
-
-        // Navigate from front page
+        // Navigate from front page*/
+        navigateToRestaurant("BareBurger", driver);
+        navigateFromFrontPage(driver, preprod);
 
         // Navigate by Top Nav
 
+
         // Navigate from sidebar
-        /*try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        driver.navigate().refresh();
-        waiter("//*[@id=\"toast-material\"]/aml-dashboard/div/aml-overview/aml-report-view/div/div/div[2]/aml-filter-selector/div[1]/div[2]/tk-dropdown-tree/tk-dropdown/div/div[1]/tk-dropdown-toggle/div/tk-input/div/input",10 ,driver);
-        //new WebDriverWait(driver, 10).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"toast-material\"]/aml-dashboard/div/aml-overview/aml-report-view/div/div/div[2]/aml-filter-selector/div[1]/div[2]/tk-dropdown-tree/tk-dropdown/div/div[1]/tk-dropdown-toggle/div/tk-input/div/input")));*/
+
+
         driver.close();
         /* It don't matter form here bruh
 
         ->
         */
+    }
+
+    public static void logIn(WebDriver driver)
+    {
+        driver.findElement(By.xpath("//*[@id=\"email\"]")).sendKeys("rdiaz@toasttab.com");
+        driver.findElement(By.xpath("//*[@id=\"password\"]")).sendKeys(System.getenv("MY_PASSWORD")); //NO SEAS TONTO
+        driver.findElement(By.xpath("//*[@id=\"log-in\"]")).click();
     }
 
     public static void waiter(String path, Integer time, WebDriver redcar)
@@ -91,6 +77,31 @@ public class Main {
         waiter("//*[@id=\"toast-material\"]/aml-dashboard/div/aml-product-mix/aml-report-view/div/div/div[2]/aml-submit-button", 10, urlDrive);
         urlDrive.get(Env + "/restaurants/admin/analytics/home/accounting/overview");
         waiter("//*[@id=\"toast-material\"]/aml-dashboard/div/aml-finance-overview/aml-report-view/div/div/div[2]/aml-submit-button", 10, urlDrive);
+    }
+
+    public static void navigateFromFrontPage(WebDriver urlDrive, String Env)
+    {
+        urlDrive.get(Env);
+        waiter("/html/body/div[2]/div[1]/div/div[3]/div/div[2]/div[4]/ul/li[1]", 10, urlDrive);
+        urlDrive.findElement(By.xpath("/html/body/div[2]/div[1]/div/div[3]/div/div[2]/div[4]/ul/li[1]")).click();
+        waiter("//*[@id=\"toast-material\"]/aml-dashboard/div/aml-overview/aml-report-view/div/div/div[2]/aml-submit-button", 20, urlDrive);
+        urlDrive.navigate().back();
+        waiter("/html/body/div[2]/div[1]/div/div[3]/div/div[2]/div[4]/ul/li[2]", 10, urlDrive);
+        urlDrive.findElement(By.xpath("/html/body/div[2]/div[1]/div/div[3]/div/div[2]/div[4]/ul/li[2]")).click();
+        waiter("//*[@id=\"toast-material\"]/aml-dashboard/div/aml-overview/aml-report-view/div/div/div[2]/aml-submit-button", 10, urlDrive);
+        urlDrive.navigate().back();
+        waiter("/html/body/div[2]/div[1]/div/div[3]/div/div[2]/div[4]/ul/li[3]", 10, urlDrive);
+        urlDrive.findElement(By.xpath("/html/body/div[2]/div[1]/div/div[3]/div/div[2]/div[4]/ul/li[3]")).click();
+        waiter("//*[@id=\"toast-material\"]/aml-dashboard/div/aml-sales-summary/aml-report-view/div/div/div[2]/aml-submit-button", 10, urlDrive);
+        urlDrive.navigate().back();
+        waiter("/html/body/div[2]/div[1]/div/div[3]/div/div[2]/div[4]/ul/li[4]", 10, urlDrive);
+        urlDrive.findElement(By.xpath("/html/body/div[2]/div[1]/div/div[3]/div/div[2]/div[4]/ul/li[4]")).click();
+        waiter("//*[@id=\"toast-material\"]/aml-dashboard/div/aml-product-mix/aml-report-view/div/div/div[2]/aml-submit-button", 10, urlDrive);
+        urlDrive.navigate().back();
+        waiter("/html/body/div[2]/div[1]/div/div[3]/div/div[2]/div[4]/ul/li[5]", 10, urlDrive);
+        urlDrive.findElement(By.xpath("/html/body/div[2]/div[1]/div/div[3]/div/div[2]/div[4]/ul/li[5]")).click();
+        waiter("//*[@id=\"toast-material\"]/aml-dashboard/div/aml-finance-overview/aml-report-view/div/div/div[2]/aml-submit-button", 10, urlDrive);
+        urlDrive.navigate().back();
     }
 
     public static void navigateToRestaurant(String retaurantName, WebDriver blueCar)
